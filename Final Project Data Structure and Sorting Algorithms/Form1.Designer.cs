@@ -133,7 +133,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             cmbAlgoritms = new ComboBox();
             btnSort = new Button();
             btnSetNumbers = new Button();
-            txtNumbers = new TextBox();
+            txtStats = new TextBox();
             tabControl1.SuspendLayout();
             Lists.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -1216,11 +1216,11 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             // 
             // tabPage8
             // 
+            tabPage8.Controls.Add(txtStats);
             tabPage8.Controls.Add(lstNumbersSort);
             tabPage8.Controls.Add(cmbAlgoritms);
             tabPage8.Controls.Add(btnSort);
             tabPage8.Controls.Add(btnSetNumbers);
-            tabPage8.Controls.Add(txtNumbers);
             tabPage8.Location = new Point(4, 24);
             tabPage8.Name = "tabPage8";
             tabPage8.Padding = new Padding(3);
@@ -1234,9 +1234,9 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             lstNumbersSort.Font = new Font("Segoe UI", 14F);
             lstNumbersSort.FormattingEnabled = true;
             lstNumbersSort.ItemHeight = 25;
-            lstNumbersSort.Location = new Point(106, 283);
+            lstNumbersSort.Location = new Point(33, 113);
             lstNumbersSort.Name = "lstNumbersSort";
-            lstNumbersSort.Size = new Size(543, 54);
+            lstNumbersSort.Size = new Size(131, 354);
             lstNumbersSort.TabIndex = 26;
             // 
             // cmbAlgoritms
@@ -1263,20 +1263,20 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             btnSetNumbers.Font = new Font("Swis721 Lt BT", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSetNumbers.Location = new Point(592, 113);
             btnSetNumbers.Name = "btnSetNumbers";
-            btnSetNumbers.Size = new Size(135, 42);
+            btnSetNumbers.Size = new Size(171, 42);
             btnSetNumbers.TabIndex = 23;
-            btnSetNumbers.Text = "Set Numbers";
+            btnSetNumbers.Text = "Generate Numbers";
             btnSetNumbers.UseVisualStyleBackColor = true;
             btnSetNumbers.Click += btnSetNumbers_Click;
             // 
-            // txtNumbers
+            // txtStats
             // 
-            txtNumbers.Font = new Font("Segoe UI", 14F);
-            txtNumbers.Location = new Point(106, 103);
-            txtNumbers.Multiline = true;
-            txtNumbers.Name = "txtNumbers";
-            txtNumbers.Size = new Size(459, 63);
-            txtNumbers.TabIndex = 0;
+            txtStats.Location = new Point(195, 113);
+            txtStats.Multiline = true;
+            txtStats.Name = "txtStats";
+            txtStats.ReadOnly = true;
+            txtStats.Size = new Size(130, 67);
+            txtStats.TabIndex = 27;
             // 
             // Form1
             // 
@@ -1411,9 +1411,9 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
         private Label label29;
         private TabPage tabPage8;
         private Button btnSetNumbers;
-        private TextBox txtNumbers;
         private ComboBox cmbAlgoritms;
         private Button btnSort;
         private ListBox lstNumbersSort;
+        private TextBox txtStats;
     }
 }

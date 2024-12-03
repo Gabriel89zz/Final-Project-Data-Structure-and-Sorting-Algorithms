@@ -24,6 +24,8 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
         private PriorityQueue_VectorsOfVectors priorityQueueVectorsOfVectors;
         private Graph graph;
         private int[] numbers;
+        private int comparisonsCount = 0;  
+        private int swapsCount = 0;
         public Form1()
         {
             InitializeComponent();
@@ -40,7 +42,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             doubleEndedDynamicQueue = new DoubleEndedDynamicQueue();
             priorityQueueVectorsOfVectors = new PriorityQueue_VectorsOfVectors(3, 5);
             graph = new Graph();
-            cmbAlgoritms.Items.AddRange(new string[] { "Gnome Sort", "Heap Sort" });
+            cmbAlgoritms.Items.AddRange(new string[] { "Gnome Sort", "Heap Sort", "Bubble Sort", "Cocktail Sort" });
             cmbAlgoritms.SelectedIndex = 0;
             numbers = new int[] { };
         }
@@ -1156,63 +1158,60 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
 
         private void btnSetNumbers_Click(object sender, EventArgs e)
         {
-            try
-            {
-                numbers = txtNumbers.Text
-                    .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(n => int.Parse(n.Trim()))
-                    .ToArray();
-
-                DisplayNumbers(numbers);
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Ingrese números válidos separados por comas.", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        public void DisplayNumbers(int[] array, int highlightIndex1 = -1, int highlightIndex2 = -1)
-        {
-            lstNumbersSort.Items.Clear();
-            string displayText = "";
-
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (i == highlightIndex1 || i == highlightIndex2)
-                {
-                    displayText += $"[{array[i]}] ";
-                }
-                else
-                {
-                    displayText += $"{array[i]} ";
-                }
-            }
-
-            lstNumbersSort.Items.Add(displayText.Trim());
+            Random random = new Random();
+            numbers = Enumerable.Range(0, 10).Select(_ => random.Next(1, 100)).ToArray();
+            DisplayNumbers(numbers);
         }
 
         //HACER QUE MUESTRE MEJOR EL ALOGRITMO
         private async void btnSort_Click(object sender, EventArgs e)
         {
+            txtStats.Clear();
             if (numbers == null || numbers.Length == 0)
             {
-                MessageBox.Show("Por favor, introduzca los números primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor, genera los números primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             string selectedMethod = cmbAlgoritms.SelectedItem.ToString();
+            SortMetrics metrics = new SortMetrics();
 
             switch (selectedMethod)
             {
                 case "Gnome Sort":
-                    await GnomeSort.Sort(numbers, DisplayNumbers);
+                    await GnomeSort.Sort(numbers, DisplayNumbers, metrics);
+                    break;
+                case "Bubble Sort":
+                    await BubbleSort.Sort(numbers, DisplayNumbers,txtStats);
+                    break;
+                case "Cocktail Sort":
+                    await CocktailSort.Sort(numbers, DisplayNumbers, metrics);
+                    break;
+                case "Heap Sort":
+                    await HeapSort.Sort(numbers, DisplayNumbers, metrics);
                     break;
                 default:
                     MessageBox.Show("Método de ordenamiento no válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
+                    return;
             }
+         
+
 
             MessageBox.Show("¡Ordenamiento completado!", selectedMethod, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void DisplayNumbers(int[] array, int currentIndex = -1, int compareIndex = -1)
+        {
+            lstNumbersSort.Items.Clear();
+            for (int i = 0; i < array.Length; i++)
+            {
+                string itemText = array[i].ToString();
+                if (i == currentIndex || i == compareIndex)
+                {
+                    itemText = $"[{itemText}]";
+                }
+                lstNumbersSort.Items.Add(itemText);
+            }
         }
     }
 }
