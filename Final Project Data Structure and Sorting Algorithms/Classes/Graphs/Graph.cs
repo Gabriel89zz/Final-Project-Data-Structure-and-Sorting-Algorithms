@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Final_Project_Data_Structure_and_Sorting_Algorithms
+namespace Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Graphs
 {
     internal class Graph
     {
-        public List<GraphNode> Nodes { get;}
-        public List<List<Edge>> AdjacencyList { get;}
+        public List<GraphNode> Nodes { get; }
+        public List<List<Edge>> AdjacencyList { get; }
 
         public Graph()
         {

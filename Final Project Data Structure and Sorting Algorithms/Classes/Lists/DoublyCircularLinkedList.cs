@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Final_Project_Data_Structure_and_Sorting_Algorithms
+namespace Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Lists
 {
-    internal class DoublyCircularLinkedList:ImethodLists
+    internal class DoublyCircularLinkedList : ImethodLists
     {
         private DoubleNode head;
 

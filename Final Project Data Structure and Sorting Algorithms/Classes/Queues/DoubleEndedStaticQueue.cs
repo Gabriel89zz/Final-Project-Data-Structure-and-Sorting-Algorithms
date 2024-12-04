@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Final_Project_Data_Structure_and_Sorting_Algorithms
+namespace Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues
 {
     internal class DoubleEndedStaticQueue
     {

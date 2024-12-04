@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Final_Project_Data_Structure_and_Sorting_Algorithms
+namespace Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Lists
 {
-    internal class DoublyLinkedList: ImethodLists
+    internal class DoublyLinkedList : ImethodLists
     {
         private DoubleNode head;
         public DoublyLinkedList()
@@ -18,7 +18,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
 
         public void Add(DoubleNode newNode)
         {
-           
+
             if (head == null || head.Value >= newNode.Value) // Insertar al inicio si está vacía o el valor es menor.
             {
                 newNode.Next = head!;

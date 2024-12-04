@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
 
-namespace Final_Project_Data_Structure_and_Sorting_Algorithms
+namespace Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Graphs
 {
     internal class GraphNode
     {

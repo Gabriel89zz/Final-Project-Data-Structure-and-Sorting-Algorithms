@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Final_Project_Data_Structure_and_Sorting_Algorithms
+namespace Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues
 {
     internal class StaticQueue
     {
@@ -13,7 +13,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
         private int rear;       // Índice del último elemento de la cola
         private int count;      // Número de elementos en la cola
 
-        public int Capacity { get;} // Capacidad máxima de la cola
+        public int Capacity { get; } // Capacidad máxima de la cola
 
         public StaticQueue(int capacity)
         {
@@ -32,7 +32,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                 throw new InvalidOperationException("La cola está llena.");
             }
 
-            rear = (rear + 1) % Capacity; 
+            rear = (rear + 1) % Capacity;
             elements[rear] = number;
             count++;
         }
@@ -46,7 +46,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             }
 
             int number = elements[front];
-            front = (front + 1) % Capacity; 
+            front = (front + 1) % Capacity;
             count--;
             return number;
         }

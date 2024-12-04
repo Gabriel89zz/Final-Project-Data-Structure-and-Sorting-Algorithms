@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace Final_Project_Data_Structure_and_Sorting_Algorithms
+namespace Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues
 {
     internal class CircularQueue
     {
@@ -21,7 +21,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
         // Constructor para inicializar la cola circular con un tamaño determinado
         public CircularQueue(int capacity)
         {
-            this.Capacity = capacity;
+            Capacity = capacity;
             array = new int[capacity];
             front = 0;
             rear = -1;

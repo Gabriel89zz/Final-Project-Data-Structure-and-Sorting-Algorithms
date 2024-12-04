@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 using System.Threading.Tasks;
+using Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Stacks;
+using Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues;
+using Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Graphs;
 
 namespace Final_Project_Data_Structure_and_Sorting_Algorithms
 {
@@ -24,8 +27,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
         private PriorityQueue_VectorsOfVectors priorityQueueVectorsOfVectors;
         private Graph graph;
         private int[] numbers;
-        private int comparisonsCount = 0;  
-        private int swapsCount = 0;
+        
         public Form1()
         {
             InitializeComponent();
@@ -42,7 +44,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             doubleEndedDynamicQueue = new DoubleEndedDynamicQueue();
             priorityQueueVectorsOfVectors = new PriorityQueue_VectorsOfVectors(3, 5);
             graph = new Graph();
-            cmbAlgoritms.Items.AddRange(new string[] { "Gnome Sort", "Heap Sort", "Bubble Sort", "Cocktail Sort" });
+            cmbAlgoritms.Items.AddRange(new string[] { "Gnome Sort", "Heap Sort", "Bubble Sort", "Cocktail Sort","Insertion Sort", "Shell Sort","Selection Sort", "Quick Sort", "Merge Sort", "Comb Sort", "Counting Sort", "Bucket Sort" });
             cmbAlgoritms.SelectedIndex = 0;
             numbers = new int[] { };
         }
@@ -1163,10 +1165,9 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             DisplayNumbers(numbers);
         }
 
-        //HACER QUE MUESTRE MEJOR EL ALOGRITMO
+        //ADAPTAR LOS ALGORITMOS AL ESTLO DEL BUBBLE
         private async void btnSort_Click(object sender, EventArgs e)
         {
-            txtStats.Clear();
             if (numbers == null || numbers.Length == 0)
             {
                 MessageBox.Show("Por favor, genera los números primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1174,21 +1175,42 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             }
 
             string selectedMethod = cmbAlgoritms.SelectedItem.ToString();
-            SortMetrics metrics = new SortMetrics();
 
             switch (selectedMethod)
             {
                 case "Gnome Sort":
-                    await GnomeSort.Sort(numbers, DisplayNumbers, metrics);
+                    await GnomeSort.Sort(numbers, DisplayNumbers);
                     break;
                 case "Bubble Sort":
-                    await BubbleSort.Sort(numbers, DisplayNumbers,txtStats);
+                    await BubbleSort.Sort(numbers, DisplayNumbers);
+                    break;
+                case "Comb Sort":
+                    await CombSort.Sort(numbers, DisplayNumbers);
                     break;
                 case "Cocktail Sort":
-                    await CocktailSort.Sort(numbers, DisplayNumbers, metrics);
+                    await CocktailSort.Sort(numbers, DisplayNumbers);
                     break;
                 case "Heap Sort":
-                    await HeapSort.Sort(numbers, DisplayNumbers, metrics);
+                    await HeapSort.Sort(numbers, DisplayNumbers);
+                    break;
+                case "Insertion Sort":
+                    await InsertionSort.Sort(numbers, DisplayNumbers);
+                    break;
+                case "Shell Sort":
+                    await ShellSort.Sort(numbers, DisplayNumbers);
+                    break;  
+                case "Selection Sort":
+                    await SelectionSort.Sort(numbers, DisplayNumbers);
+                    break;
+                case "Counting Sort":
+                    await SelectionSort.Sort(numbers, DisplayNumbers);
+                    break;
+                case "Merge Sort":
+                    await MergeAlgorithms.MergeSort(numbers, 0, numbers.Length - 1, DisplayNumbers);
+                    break;
+                case "Quick Sort":
+                    //CHECAR BIEN ESTA MADRE
+                    await QuickSort.Sort(numbers,0,numbers.Length-1, DisplayNumbers);
                     break;
                 default:
                     MessageBox.Show("Método de ordenamiento no válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
