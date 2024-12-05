@@ -104,16 +104,16 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             tabPage7 = new TabPage();
             label21 = new Label();
             txtPriorityQueueLevel = new TextBox();
-            button1 = new Button();
+            btnPriorityQueueSize = new Button();
             btnPeekPriorityQueue = new Button();
             btnDequeuePriorityQueue = new Button();
             btnEnqueuePriorityQueue = new Button();
             label17 = new Label();
-            listBox1 = new ListBox();
+            lstPriorityQueueLL = new ListBox();
             label18 = new Label();
-            listBox2 = new ListBox();
+            lstPriorityQueueLV = new ListBox();
             label19 = new Label();
-            listBox3 = new ListBox();
+            lstPriorityQueueVL = new ListBox();
             label20 = new Label();
             lstPriorityQueueVV = new ListBox();
             label16 = new Label();
@@ -909,16 +909,16 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             // 
             tabPage7.Controls.Add(label21);
             tabPage7.Controls.Add(txtPriorityQueueLevel);
-            tabPage7.Controls.Add(button1);
+            tabPage7.Controls.Add(btnPriorityQueueSize);
             tabPage7.Controls.Add(btnPeekPriorityQueue);
             tabPage7.Controls.Add(btnDequeuePriorityQueue);
             tabPage7.Controls.Add(btnEnqueuePriorityQueue);
             tabPage7.Controls.Add(label17);
-            tabPage7.Controls.Add(listBox1);
+            tabPage7.Controls.Add(lstPriorityQueueLL);
             tabPage7.Controls.Add(label18);
-            tabPage7.Controls.Add(listBox2);
+            tabPage7.Controls.Add(lstPriorityQueueLV);
             tabPage7.Controls.Add(label19);
-            tabPage7.Controls.Add(listBox3);
+            tabPage7.Controls.Add(lstPriorityQueueVL);
             tabPage7.Controls.Add(label20);
             tabPage7.Controls.Add(lstPriorityQueueVV);
             tabPage7.Controls.Add(label16);
@@ -949,15 +949,16 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             txtPriorityQueueLevel.Size = new Size(119, 30);
             txtPriorityQueueLevel.TabIndex = 46;
             // 
-            // button1
+            // btnPriorityQueueSize
             // 
-            button1.Font = new Font("Swis721 Lt BT", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.Location = new Point(225, 273);
-            button1.Name = "button1";
-            button1.Size = new Size(96, 42);
-            button1.TabIndex = 45;
-            button1.Text = "Size";
-            button1.UseVisualStyleBackColor = true;
+            btnPriorityQueueSize.Font = new Font("Swis721 Lt BT", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnPriorityQueueSize.Location = new Point(225, 273);
+            btnPriorityQueueSize.Name = "btnPriorityQueueSize";
+            btnPriorityQueueSize.Size = new Size(96, 42);
+            btnPriorityQueueSize.TabIndex = 45;
+            btnPriorityQueueSize.Text = "Size";
+            btnPriorityQueueSize.UseVisualStyleBackColor = true;
+            btnPriorityQueueSize.Click += btnPriorityQueueuSize_Click;
             // 
             // btnPeekPriorityQueue
             // 
@@ -1002,15 +1003,15 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             label17.TabIndex = 41;
             label17.Text = "With Lists of Lists";
             // 
-            // listBox1
+            // lstPriorityQueueLL
             // 
-            listBox1.Font = new Font("Swis721 Lt BT", 14.25F);
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 22;
-            listBox1.Location = new Point(680, 282);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(116, 158);
-            listBox1.TabIndex = 40;
+            lstPriorityQueueLL.Font = new Font("Swis721 Lt BT", 14.25F);
+            lstPriorityQueueLL.FormattingEnabled = true;
+            lstPriorityQueueLL.ItemHeight = 22;
+            lstPriorityQueueLL.Location = new Point(680, 282);
+            lstPriorityQueueLL.Name = "lstPriorityQueueLL";
+            lstPriorityQueueLL.Size = new Size(116, 158);
+            lstPriorityQueueLL.TabIndex = 40;
             // 
             // label18
             // 
@@ -1022,15 +1023,15 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             label18.TabIndex = 39;
             label18.Text = "With Lists of Vectors";
             // 
-            // listBox2
+            // lstPriorityQueueLV
             // 
-            listBox2.Font = new Font("Swis721 Lt BT", 14.25F);
-            listBox2.FormattingEnabled = true;
-            listBox2.ItemHeight = 22;
-            listBox2.Location = new Point(433, 282);
-            listBox2.Name = "listBox2";
-            listBox2.Size = new Size(116, 158);
-            listBox2.TabIndex = 38;
+            lstPriorityQueueLV.Font = new Font("Swis721 Lt BT", 14.25F);
+            lstPriorityQueueLV.FormattingEnabled = true;
+            lstPriorityQueueLV.ItemHeight = 22;
+            lstPriorityQueueLV.Location = new Point(433, 282);
+            lstPriorityQueueLV.Name = "lstPriorityQueueLV";
+            lstPriorityQueueLV.Size = new Size(116, 158);
+            lstPriorityQueueLV.TabIndex = 38;
             // 
             // label19
             // 
@@ -1042,15 +1043,15 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             label19.TabIndex = 37;
             label19.Text = "With Vectors of Lists";
             // 
-            // listBox3
+            // lstPriorityQueueVL
             // 
-            listBox3.Font = new Font("Swis721 Lt BT", 14.25F);
-            listBox3.FormattingEnabled = true;
-            listBox3.ItemHeight = 22;
-            listBox3.Location = new Point(680, 59);
-            listBox3.Name = "listBox3";
-            listBox3.Size = new Size(116, 158);
-            listBox3.TabIndex = 36;
+            lstPriorityQueueVL.Font = new Font("Swis721 Lt BT", 14.25F);
+            lstPriorityQueueVL.FormattingEnabled = true;
+            lstPriorityQueueVL.ItemHeight = 22;
+            lstPriorityQueueVL.Location = new Point(680, 59);
+            lstPriorityQueueVL.Name = "lstPriorityQueueVL";
+            lstPriorityQueueVL.Size = new Size(116, 158);
+            lstPriorityQueueVL.TabIndex = 36;
             // 
             // label20
             // 
@@ -1358,14 +1359,14 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
         private Label label16;
         private TextBox txtQueuePriorityValue;
         private Label label17;
-        private ListBox listBox1;
+        private ListBox lstPriorityQueueLL;
         private Label label18;
-        private ListBox listBox2;
+        private ListBox lstPriorityQueueLV;
         private Label label19;
-        private ListBox listBox3;
+        private ListBox lstPriorityQueueVL;
         private Label label20;
         private ListBox lstPriorityQueueVV;
-        private Button button1;
+        private Button btnPriorityQueueSize;
         private Button btnPeekPriorityQueue;
         private Button btnDequeuePriorityQueue;
         private Button btnEnqueuePriorityQueue;

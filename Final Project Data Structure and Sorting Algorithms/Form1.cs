@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Stacks;
 using Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues;
 using Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Graphs;
+using static Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues.PriorityQueues;
 
 namespace Final_Project_Data_Structure_and_Sorting_Algorithms
 {
@@ -24,10 +25,13 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
         private CircularQueue circularQueue;
         private DoubleEndedStaticQueue doubleEndedStaticQueue;
         private DoubleEndedDynamicQueue doubleEndedDynamicQueue;
-        private PriorityQueue_VectorsOfVectors priorityQueueVectorsOfVectors;
         private Graph graph;
         private int[] numbers;
-        
+        private VectorOfVectors_PQ<int> vectorOfVectorsPQ;
+        private VectorOfLists_PQ<int> vectorOfListsPQ;
+        private ListOfLists_PQ<int> listOfListsPQ;
+        private ListOfVectors_PQ<int> listOfVectorsPQ;
+
         public Form1()
         {
             InitializeComponent();
@@ -42,11 +46,14 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             circularQueue = new CircularQueue(5);
             doubleEndedStaticQueue = new DoubleEndedStaticQueue(5);
             doubleEndedDynamicQueue = new DoubleEndedDynamicQueue();
-            priorityQueueVectorsOfVectors = new PriorityQueue_VectorsOfVectors(3, 5);
             graph = new Graph();
-            cmbAlgoritms.Items.AddRange(new string[] { "Gnome Sort", "Heap Sort", "Bubble Sort", "Cocktail Sort","Insertion Sort", "Shell Sort","Selection Sort", "Quick Sort", "Merge Sort", "Comb Sort", "Counting Sort", "Bucket Sort" });
+            cmbAlgoritms.Items.AddRange(new string[] { "Gnome Sort", "Heap Sort", "Bubble Sort", "Cocktail Sort", "Insertion Sort", "Shell Sort", "Selection Sort", "Quick Sort", "Merge Sort", "Comb Sort", "Counting Sort", "Bucket Sort" });
             cmbAlgoritms.SelectedIndex = 0;
             numbers = new int[] { };
+            vectorOfVectorsPQ = new VectorOfVectors_PQ<int>(3);
+            vectorOfListsPQ = new VectorOfLists_PQ<int>(3);
+            listOfListsPQ = new ListOfLists_PQ<int>(3);
+            listOfVectorsPQ = new ListOfVectors_PQ<int>(3);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -859,54 +866,103 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
         {
             try
             {
-                int value = int.Parse(txtQueuePriorityValue.Text);
-                int priority = int.Parse(txtPriorityQueueLevel.Text);
+                // Intentamos convertir los valores del texto a enteros
+                if (int.TryParse(txtQueuePriorityValue.Text, out int value))
+                {
+                    // Convertimos el nivel de prioridad
+                    int priority = Convert.ToInt16(txtPriorityQueueLevel.Text);
 
-                priorityQueueVectorsOfVectors.Enqueue(priority, value);
-
-                UpdateListBoxPriorityQueue();
+                    // Encolamos los valores en las diferentes estructuras de datos
+                    vectorOfVectorsPQ.Enqueue(value, priority);
+                    vectorOfListsPQ.Enqueue(value, priority);
+                    listOfListsPQ.Enqueue(value, priority);
+                    listOfVectorsPQ.Enqueue(value, priority);
+                    UpdateListBoxes();
+                }
             }
-            catch (FormatException)
+            catch (FormatException ex)
             {
-                MessageBox.Show("Please enter valid numeric values.", "Format error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                MessageBox.Show(ex.Message, "Range error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            catch (InvalidOperationException ex)
-            {
-                MessageBox.Show(ex.Message, "Operating error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                // Capturamos el error si la conversión del nivel de prioridad falla
+                MessageBox.Show($"Invalid format for priority level. Please enter a valid integer. Error: {ex.Message}");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Unexpected error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Capturamos cualquier otro error general
+                MessageBox.Show($"An error occurred: {ex.Message}");
             }
         }
 
-        private void UpdateListBoxPriorityQueue()
+        private void UpdateListBoxes()
         {
             lstPriorityQueueVV.Items.Clear();
-            lstPriorityQueueVV.Items.AddRange(priorityQueueVectorsOfVectors.GetQueueState().ToArray());
+            lstPriorityQueueVL.Items.Clear();
+            lstPriorityQueueLV.Items.Clear();
+            lstPriorityQueueLL.Items.Clear();
+
+            UpdateListBox(lstPriorityQueueVV, vectorOfVectorsPQ);
+            UpdateListBox(lstPriorityQueueVL, vectorOfListsPQ);
+            UpdateListBox(lstPriorityQueueLL, listOfListsPQ);
+            UpdateListBox(lstPriorityQueueLV, listOfVectorsPQ);
+        }
+
+        private void UpdateListBox<T>(ListBox listBox, T queue) where T : class
+        {
+            listBox.Items.Clear();
+            var items = (queue as dynamic).ToList();
+            listBox.Items.AddRange(items.ToArray());
         }
 
         private void btnDequeuePriorityQueue_Click(object sender, EventArgs e)
         {
             try
             {
-                int dequeuedValue = priorityQueueVectorsOfVectors.Dequeue();
+                if (!vectorOfVectorsPQ.IsEmpty())
+                {
+                    var dequeuedItem = vectorOfVectorsPQ.Dequeue();
+                    MessageBox.Show($"Dequeued from vectorOfVectorsPQ: {dequeuedItem}");
+                }
+                else
+                {
+                    MessageBox.Show("vectorOfVectorsPQ is empty.");
+                }
 
-                MessageBox.Show($"Value removed from queue: {dequeuedValue}", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (!vectorOfListsPQ.IsEmpty())
+                {
+                    var dequeuedItem = vectorOfListsPQ.Dequeue();
+                    MessageBox.Show($"Dequeued from vectorOfListsPQ: {dequeuedItem}");
+                }
+                else
+                {
+                    MessageBox.Show("vectorOfListsPQ is empty.");
+                }
 
-                UpdateListBoxPriorityQueue();
-            }
-            catch (InvalidOperationException ex)
-            {
-                MessageBox.Show(ex.Message, "Empty Queue", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (!listOfListsPQ.IsEmpty())
+                {
+                    var dequeuedItem = listOfListsPQ.Dequeue();
+                    MessageBox.Show($"Dequeued from listOfListsPQ: {dequeuedItem}");
+                }
+                else
+                {
+                    MessageBox.Show("listOfListsPQ is empty.");
+                }
+
+                if (!listOfVectorsPQ.IsEmpty())
+                {
+                    var dequeuedItem = listOfVectorsPQ.Dequeue();
+                    MessageBox.Show($"Dequeued from listOfVectorsPQ: {dequeuedItem}");
+                }
+                else
+                {
+                    MessageBox.Show("listOfVectorsPQ is empty.");
+                }
+
+                // Actualizamos los ListBoxes después de realizar el dequeue
+                UpdateListBoxes();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Unexpected error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Si ocurre algún error inesperado, lo mostramos al usuario
+                MessageBox.Show($"An error occurred while dequeuing: {ex.Message}");
             }
         }
 
@@ -914,17 +970,51 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
         {
             try
             {
-                int peekedValue = priorityQueueVectorsOfVectors.Peek();
+                // Verificamos si las colas tienen elementos antes de hacer un Peek
+                if (!vectorOfVectorsPQ.IsEmpty())
+                {
+                    var peekedItem = vectorOfVectorsPQ.Peek();
+                    MessageBox.Show($"Next item in vectorOfVectorsPQ: {peekedItem}");
+                }
+                else
+                {
+                    MessageBox.Show("vectorOfVectorsPQ is empty.");
+                }
 
-                MessageBox.Show($"The highest priority value is: {peekedValue}", "Peek", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (InvalidOperationException ex)
-            {
-                MessageBox.Show(ex.Message, "Empty Queue", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (!vectorOfListsPQ.IsEmpty())
+                {
+                    var peekedItem = vectorOfListsPQ.Peek();
+                    MessageBox.Show($"Next item in vectorOfListsPQ: {peekedItem}");
+                }
+                else
+                {
+                    MessageBox.Show("vectorOfListsPQ is empty.");
+                }
+
+                if (!listOfListsPQ.IsEmpty())
+                {
+                    var peekedItem = listOfListsPQ.Peek();
+                    MessageBox.Show($"Next item in listOfListsPQ: {peekedItem}");
+                }
+                else
+                {
+                    MessageBox.Show("listOfListsPQ is empty.");
+                }
+
+                if (!listOfVectorsPQ.IsEmpty())
+                {
+                    var peekedItem = listOfVectorsPQ.Peek();
+                    MessageBox.Show($"Next item in listOfVectorsPQ: {peekedItem}");
+                }
+                else
+                {
+                    MessageBox.Show("listOfVectorsPQ is empty.");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Unexpected error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Si ocurre algún error inesperado, lo mostramos al usuario
+                MessageBox.Show($"An error occurred while peeking: {ex.Message}");
             }
         }
         //FALTA COLAS DE PIRORIDAD
@@ -1165,7 +1255,6 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             DisplayNumbers(numbers);
         }
 
-        //ADAPTAR LOS ALGORITMOS AL ESTLO DEL BUBBLE
         private async void btnSort_Click(object sender, EventArgs e)
         {
             if (numbers == null || numbers.Length == 0)
@@ -1198,7 +1287,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                     break;
                 case "Shell Sort":
                     await ShellSort.Sort(numbers, DisplayNumbers);
-                    break;  
+                    break;
                 case "Selection Sort":
                     await SelectionSort.Sort(numbers, DisplayNumbers);
                     break;
@@ -1210,13 +1299,13 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                     break;
                 case "Quick Sort":
                     //CHECAR BIEN ESTA MADRE
-                    await QuickSort.Sort(numbers,0,numbers.Length-1, DisplayNumbers);
+                    await QuickSort.Sort(numbers, 0, numbers.Length - 1, DisplayNumbers);
                     break;
                 default:
                     MessageBox.Show("Método de ordenamiento no válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
             }
-         
+
 
 
             MessageBox.Show("¡Ordenamiento completado!", selectedMethod, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1233,6 +1322,23 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                     itemText = $"[{itemText}]";
                 }
                 lstNumbersSort.Items.Add(itemText);
+            }
+        }
+
+        private void btnPriorityQueueuSize_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Mostrar el tamaño de cada cola
+                MessageBox.Show($"vectorOfVectorsPQ size: {vectorOfVectorsPQ.Size()}");
+                MessageBox.Show($"vectorOfListsPQ size: {vectorOfListsPQ.Size()}");
+                MessageBox.Show($"listOfListsPQ size: {listOfListsPQ.Size()}");
+                MessageBox.Show($"listOfVectorsPQ size: {listOfVectorsPQ.Size()}");
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier error inesperado
+                MessageBox.Show($"An error occurred while retrieving the sizes: {ex.Message}");
             }
         }
     }
