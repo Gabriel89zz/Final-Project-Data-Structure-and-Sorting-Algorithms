@@ -133,6 +133,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             cmbAlgoritms = new ComboBox();
             btnSort = new Button();
             btnSetNumbers = new Button();
+            lstAux = new ListBox();
             tabControl1.SuspendLayout();
             Lists.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -1216,6 +1217,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             // 
             // tabPage8
             // 
+            tabPage8.Controls.Add(lstAux);
             tabPage8.Controls.Add(lstNumbersSort);
             tabPage8.Controls.Add(cmbAlgoritms);
             tabPage8.Controls.Add(btnSort);
@@ -1235,7 +1237,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             lstNumbersSort.ItemHeight = 25;
             lstNumbersSort.Location = new Point(24, 97);
             lstNumbersSort.Name = "lstNumbersSort";
-            lstNumbersSort.Size = new Size(131, 354);
+            lstNumbersSort.Size = new Size(407, 354);
             lstNumbersSort.TabIndex = 26;
             // 
             // cmbAlgoritms
@@ -1267,6 +1269,16 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             btnSetNumbers.Text = "Generate Numbers";
             btnSetNumbers.UseVisualStyleBackColor = true;
             btnSetNumbers.Click += btnSetNumbers_Click;
+            // 
+            // lstAux
+            // 
+            lstAux.Font = new Font("Segoe UI", 14F);
+            lstAux.FormattingEnabled = true;
+            lstAux.ItemHeight = 25;
+            lstAux.Location = new Point(474, 97);
+            lstAux.Name = "lstAux";
+            lstAux.Size = new Size(407, 354);
+            lstAux.TabIndex = 27;
             // 
             // Form1
             // 
@@ -1403,5 +1415,6 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
         private ComboBox cmbAlgoritms;
         private Button btnSort;
         private ListBox lstNumbersSort;
+        private ListBox lstAux;
     }
 }

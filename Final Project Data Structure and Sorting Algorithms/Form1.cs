@@ -47,7 +47,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             doubleEndedStaticQueue = new DoubleEndedStaticQueue(5);
             doubleEndedDynamicQueue = new DoubleEndedDynamicQueue();
             graph = new Graph();
-            cmbAlgoritms.Items.AddRange(new string[] { "Gnome Sort", "Heap Sort", "Bubble Sort", "Cocktail Sort", "Insertion Sort", "Shell Sort", "Selection Sort", "Quick Sort", "Merge Sort", "Comb Sort", "Counting Sort", "Bucket Sort" });
+            cmbAlgoritms.Items.AddRange(new string[] { "Gnome Sort", "Heap Sort", "Pigeonhole Sort", "Bubble Sort", "Cocktail Sort", "Insertion Sort", "Shell Sort", "Selection Sort", "Quick Sort", "Merge Sort", "Direct Merge", "Natural Merge", "Comb Sort", "Counting Sort", "Bucket Sort" });
             cmbAlgoritms.SelectedIndex = 0;
             numbers = new int[] { };
             vectorOfVectorsPQ = new VectorOfVectors_PQ<int>(3);
@@ -1276,6 +1276,9 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                 case "Comb Sort":
                     await CombSort.Sort(numbers, DisplayNumbers);
                     break;
+                case "Pigeonhole Sort":
+                    await PigeonHoleSort.Sort(numbers, UpdateCasillasListBox, UpdateSortedListBox);
+                    break;
                 case "Cocktail Sort":
                     await CocktailSort.Sort(numbers, DisplayNumbers);
                     break;
@@ -1292,10 +1295,19 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                     await SelectionSort.Sort(numbers, DisplayNumbers);
                     break;
                 case "Counting Sort":
-                    await SelectionSort.Sort(numbers, DisplayNumbers);
+                    await CountingSort.Sort(numbers, DisplayNumbersMerge);
+                    break;
+                case "Bucket Sort":
+                    await BucketSort.Sort(numbers, DisplayNumbersMerge);
                     break;
                 case "Merge Sort":
-                    await MergeAlgorithms.MergeSort(numbers, 0, numbers.Length - 1, DisplayNumbers);
+                    await MergeAlgorithms.MergeSort(numbers, 0, numbers.Length - 1, DisplayNumbersMerge);
+                    break;
+                case "Natural Merge":
+                    await MergeAlgorithms.NaturalMerge(numbers, DisplayNumbersMerge);
+                    break;
+                case "Direct Merge":
+                    await MergeAlgorithms.DirectMerge(numbers,  DisplayNumbersMerge);
                     break;
                 case "Quick Sort":
                     //CHECAR BIEN ESTA MADRE
@@ -1323,8 +1335,32 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                 }
                 lstNumbersSort.Items.Add(itemText);
             }
+            
+        }
+        private void DisplayNumbersMerge(int[] array, string message)
+        {
+            //lstNumbersSort.Items.Clear();
+            lstNumbersSort.Items.Add(message);
+            lstNumbersSort.Items.Add($"[{string.Join(", ", array)}]");
+            lstNumbersSort.Items.Add(""); // Línea en blanco para separar pasos
         }
 
+        private void UpdateCasillasListBox(int[] holes, string message)
+        {
+            lstAux.Items.Clear(); // Limpiar el ListBox antes de actualizarlo
+            lstAux.Items.Add(message); // Agregar el mensaje actual
+            lstAux.Items.Add("Estado actual de las casillas: " + string.Join(", ", holes));  // Mostrar las casillas
+            lstAux.Items.Add("");  // Línea en blanco para separar los pasos visualmente
+        }
+
+        // Método para actualizar el ListBox del arreglo ordenado
+        private void UpdateSortedListBox(int[] array, string message)
+        {
+            lstNumbersSort.Items.Clear(); // Limpiar el ListBox antes de actualizarlo
+            lstNumbersSort.Items.Add(message); // Agregar el mensaje actual
+            lstNumbersSort.Items.Add("Estado actual del arreglo: " + string.Join(", ", array));  // Mostrar el arreglo ordenado
+            lstNumbersSort.Items.Add("");  // Línea en blanco para separar los pasos visualmente
+        }
         private void btnPriorityQueueuSize_Click(object sender, EventArgs e)
         {
             try
