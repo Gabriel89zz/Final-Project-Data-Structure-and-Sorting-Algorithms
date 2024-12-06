@@ -119,6 +119,17 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             label16 = new Label();
             txtQueuePriorityValue = new TextBox();
             tabPage3 = new TabPage();
+            label30 = new Label();
+            txtOutput = new TextBox();
+            btnSearch = new Button();
+            btnClear = new Button();
+            btnInOrder = new Button();
+            btnDelete = new Button();
+            btnPostOrder = new Button();
+            btnPreOrder = new Button();
+            btnInsertNode = new Button();
+            txtNodeValue = new TextBox();
+            panelTree = new Panel();
             tabPage4 = new TabPage();
             label29 = new Label();
             label28 = new Label();
@@ -133,7 +144,6 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             cmbAlgoritms = new ComboBox();
             btnSort = new Button();
             btnSetNumbers = new Button();
-            lstAux = new ListBox();
             tabControl1.SuspendLayout();
             Lists.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -142,6 +152,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             tabPage5.SuspendLayout();
             tabPage6.SuspendLayout();
             tabPage7.SuspendLayout();
+            tabPage3.SuspendLayout();
             tabPage4.SuspendLayout();
             tabPage8.SuspendLayout();
             SuspendLayout();
@@ -1094,6 +1105,17 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(label30);
+            tabPage3.Controls.Add(txtOutput);
+            tabPage3.Controls.Add(btnSearch);
+            tabPage3.Controls.Add(btnClear);
+            tabPage3.Controls.Add(btnInOrder);
+            tabPage3.Controls.Add(btnDelete);
+            tabPage3.Controls.Add(btnPostOrder);
+            tabPage3.Controls.Add(btnPreOrder);
+            tabPage3.Controls.Add(btnInsertNode);
+            tabPage3.Controls.Add(txtNodeValue);
+            tabPage3.Controls.Add(panelTree);
             tabPage3.Location = new Point(4, 24);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
@@ -1101,6 +1123,117 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             tabPage3.TabIndex = 3;
             tabPage3.Text = "Binary Tree";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Font = new Font("Swis721 Lt BT", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label30.Location = new Point(129, 25);
+            label30.Name = "label30";
+            label30.Size = new Size(121, 22);
+            label30.TabIndex = 51;
+            label30.Text = "Node Value:";
+            // 
+            // txtOutput
+            // 
+            txtOutput.Font = new Font("Segoe UI", 14F);
+            txtOutput.Location = new Point(10, 254);
+            txtOutput.Multiline = true;
+            txtOutput.Name = "txtOutput";
+            txtOutput.Size = new Size(381, 39);
+            txtOutput.TabIndex = 50;
+            // 
+            // btnSearch
+            // 
+            btnSearch.Font = new Font("Swis721 Lt BT", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSearch.Location = new Point(255, 89);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(83, 42);
+            btnSearch.TabIndex = 49;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
+            // 
+            // btnClear
+            // 
+            btnClear.Font = new Font("Swis721 Lt BT", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnClear.Location = new Point(112, 420);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(138, 42);
+            btnClear.TabIndex = 48;
+            btnClear.Text = "Clear Tree";
+            btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += btnClear_Click;
+            // 
+            // btnInOrder
+            // 
+            btnInOrder.Font = new Font("Swis721 Lt BT", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnInOrder.Location = new Point(266, 197);
+            btnInOrder.Name = "btnInOrder";
+            btnInOrder.Size = new Size(108, 42);
+            btnInOrder.TabIndex = 47;
+            btnInOrder.Text = "In Order";
+            btnInOrder.UseVisualStyleBackColor = true;
+            btnInOrder.Click += btnInOrder_Click;
+            // 
+            // btnDelete
+            // 
+            btnDelete.Font = new Font("Swis721 Lt BT", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDelete.Location = new Point(147, 89);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(83, 42);
+            btnDelete.TabIndex = 46;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
+            // 
+            // btnPostOrder
+            // 
+            btnPostOrder.Font = new Font("Swis721 Lt BT", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnPostOrder.Location = new Point(142, 197);
+            btnPostOrder.Name = "btnPostOrder";
+            btnPostOrder.Size = new Size(108, 42);
+            btnPostOrder.TabIndex = 45;
+            btnPostOrder.Text = "Post Order";
+            btnPostOrder.UseVisualStyleBackColor = true;
+            btnPostOrder.Click += btnPostOrder_Click;
+            // 
+            // btnPreOrder
+            // 
+            btnPreOrder.Font = new Font("Swis721 Lt BT", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnPreOrder.Location = new Point(18, 197);
+            btnPreOrder.Name = "btnPreOrder";
+            btnPreOrder.Size = new Size(108, 42);
+            btnPreOrder.TabIndex = 44;
+            btnPreOrder.Text = "Pre Order";
+            btnPreOrder.UseVisualStyleBackColor = true;
+            btnPreOrder.Click += btnPreOrder_Click;
+            // 
+            // btnInsertNode
+            // 
+            btnInsertNode.Font = new Font("Swis721 Lt BT", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnInsertNode.Location = new Point(39, 89);
+            btnInsertNode.Name = "btnInsertNode";
+            btnInsertNode.Size = new Size(83, 42);
+            btnInsertNode.TabIndex = 43;
+            btnInsertNode.Text = "Insert";
+            btnInsertNode.UseVisualStyleBackColor = true;
+            btnInsertNode.Click += btnInsertNode_Click;
+            // 
+            // txtNodeValue
+            // 
+            txtNodeValue.Font = new Font("Swis721 Lt BT", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtNodeValue.Location = new Point(129, 53);
+            txtNodeValue.Name = "txtNodeValue";
+            txtNodeValue.Size = new Size(119, 30);
+            txtNodeValue.TabIndex = 21;
+            // 
+            // panelTree
+            // 
+            panelTree.Location = new Point(397, 6);
+            panelTree.Name = "panelTree";
+            panelTree.Size = new Size(493, 419);
+            panelTree.TabIndex = 0;
             // 
             // tabPage4
             // 
@@ -1217,7 +1350,6 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             // 
             // tabPage8
             // 
-            tabPage8.Controls.Add(lstAux);
             tabPage8.Controls.Add(lstNumbersSort);
             tabPage8.Controls.Add(cmbAlgoritms);
             tabPage8.Controls.Add(btnSort);
@@ -1270,16 +1402,6 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             btnSetNumbers.UseVisualStyleBackColor = true;
             btnSetNumbers.Click += btnSetNumbers_Click;
             // 
-            // lstAux
-            // 
-            lstAux.Font = new Font("Segoe UI", 14F);
-            lstAux.FormattingEnabled = true;
-            lstAux.ItemHeight = 25;
-            lstAux.Location = new Point(474, 97);
-            lstAux.Name = "lstAux";
-            lstAux.Size = new Size(407, 354);
-            lstAux.TabIndex = 27;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1301,6 +1423,8 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             tabPage6.PerformLayout();
             tabPage7.ResumeLayout(false);
             tabPage7.PerformLayout();
+            tabPage3.ResumeLayout(false);
+            tabPage3.PerformLayout();
             tabPage4.ResumeLayout(false);
             tabPage4.PerformLayout();
             tabPage8.ResumeLayout(false);
@@ -1415,6 +1539,16 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
         private ComboBox cmbAlgoritms;
         private Button btnSort;
         private ListBox lstNumbersSort;
-        private ListBox lstAux;
+        private Button btnClear;
+        private Button btnInOrder;
+        private Button btnDelete;
+        private Button btnPostOrder;
+        private Button btnPreOrder;
+        private Button btnInsertNode;
+        private TextBox txtNodeValue;
+        private Panel panelTree;
+        private Button btnSearch;
+        private TextBox txtOutput;
+        private Label label30;
     }
 }

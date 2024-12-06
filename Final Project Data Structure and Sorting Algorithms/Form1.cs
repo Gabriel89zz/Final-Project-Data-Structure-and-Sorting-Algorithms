@@ -9,6 +9,7 @@ using Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Stacks;
 using Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues;
 using Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Graphs;
 using static Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues.PriorityQueues;
+using Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.BinaryTree;
 
 namespace Final_Project_Data_Structure_and_Sorting_Algorithms
 {
@@ -31,6 +32,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
         private VectorOfLists_PQ<int> vectorOfListsPQ;
         private ListOfLists_PQ<int> listOfListsPQ;
         private ListOfVectors_PQ<int> listOfVectorsPQ;
+        private BinaryTree.Node root;
 
         public Form1()
         {
@@ -54,6 +56,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             vectorOfListsPQ = new VectorOfLists_PQ<int>(3);
             listOfListsPQ = new ListOfLists_PQ<int>(3);
             listOfVectorsPQ = new ListOfVectors_PQ<int>(3);
+            root = new BinaryTree.Node();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -1276,9 +1279,9 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                 case "Comb Sort":
                     await CombSort.Sort(numbers, DisplayNumbers);
                     break;
-                case "Pigeonhole Sort":
-                    await PigeonHoleSort.Sort(numbers, UpdateCasillasListBox, UpdateSortedListBox);
-                    break;
+                //case "Pigeonhole Sort":
+                //    await PigeonHoleSort.Sort(numbers, UpdateCasillasListBox, UpdateSortedListBox);
+                //    break;
                 case "Cocktail Sort":
                     await CocktailSort.Sort(numbers, DisplayNumbers);
                     break;
@@ -1307,7 +1310,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                     await MergeAlgorithms.NaturalMerge(numbers, DisplayNumbersMerge);
                     break;
                 case "Direct Merge":
-                    await MergeAlgorithms.DirectMerge(numbers,  DisplayNumbersMerge);
+                    await MergeAlgorithms.DirectMerge(numbers, DisplayNumbersMerge);
                     break;
                 case "Quick Sort":
                     //CHECAR BIEN ESTA MADRE
@@ -1335,7 +1338,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                 }
                 lstNumbersSort.Items.Add(itemText);
             }
-            
+
         }
         private void DisplayNumbersMerge(int[] array, string message)
         {
@@ -1343,23 +1346,6 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             lstNumbersSort.Items.Add(message);
             lstNumbersSort.Items.Add($"[{string.Join(", ", array)}]");
             lstNumbersSort.Items.Add(""); // Línea en blanco para separar pasos
-        }
-
-        private void UpdateCasillasListBox(int[] holes, string message)
-        {
-            lstAux.Items.Clear(); // Limpiar el ListBox antes de actualizarlo
-            lstAux.Items.Add(message); // Agregar el mensaje actual
-            lstAux.Items.Add("Estado actual de las casillas: " + string.Join(", ", holes));  // Mostrar las casillas
-            lstAux.Items.Add("");  // Línea en blanco para separar los pasos visualmente
-        }
-
-        // Método para actualizar el ListBox del arreglo ordenado
-        private void UpdateSortedListBox(int[] array, string message)
-        {
-            lstNumbersSort.Items.Clear(); // Limpiar el ListBox antes de actualizarlo
-            lstNumbersSort.Items.Add(message); // Agregar el mensaje actual
-            lstNumbersSort.Items.Add("Estado actual del arreglo: " + string.Join(", ", array));  // Mostrar el arreglo ordenado
-            lstNumbersSort.Items.Add("");  // Línea en blanco para separar los pasos visualmente
         }
         private void btnPriorityQueueuSize_Click(object sender, EventArgs e)
         {
@@ -1376,6 +1362,123 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                 // Manejar cualquier error inesperado
                 MessageBox.Show($"An error occurred while retrieving the sizes: {ex.Message}");
             }
+        }
+
+        private void DrawTree()
+        {
+            // Este método será usado para dibujar el árbol en un control como un PictureBox
+            using (Graphics g = panelTree.CreateGraphics())
+            {
+                g.Clear(Color.White); // Limpia el panel antes de dibujar
+
+                if (root.value != null)
+                {
+                    DrawNode(g, root, panelTree.Width / 2, 20, 100); // Comienza a dibujar desde el centro del Panel
+                }
+            }
+        }
+
+        private void DrawNode(Graphics g, BinaryTree.Node node, int x, int y, int xOffset)
+        {
+            if (node == null) return;
+
+            // Limitar la posición dentro del Panel
+            int panelWidth = panelTree.Width;
+            int panelHeight = panelTree.Height;
+
+            // Asegurar que las coordenadas x, y no se salgan del área del Panel
+            x = Math.Max(30, Math.Min(panelWidth - 30, x));   // Limita x entre 30 y panelWidth - 30
+            y = Math.Max(30, Math.Min(panelHeight - 30, y));  // Limita y entre 30 y panelHeight - 30
+
+            // Dibuja el nodo
+            g.FillEllipse(Brushes.LightBlue, x - 15, y - 15, 30, 30);
+            g.DrawString(node.value.ToString(), this.Font, Brushes.Black, x - 10, y - 10);
+
+            // Dibuja las aristas
+            if (node.left != null)
+            {
+                int leftX = x - xOffset;
+                int leftY = y + 60;
+                g.DrawLine(Pens.Black, x, y, leftX, leftY);
+                DrawNode(g, node.left, leftX, leftY, xOffset / 2);
+            }
+
+            if (node.right != null)
+            {
+                int rightX = x + xOffset;
+                int rightY = y + 60;
+                g.DrawLine(Pens.Black, x, y, rightX, rightY);
+                DrawNode(g, node.right, rightX, rightY, xOffset / 2);
+            }
+        }
+
+        private void btnInsertNode_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtNodeValue.Text, out int value))
+            {
+                root.Insert(value);
+                DrawTree();
+                txtNodeValue.Clear();
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtNodeValue.Text, out int value))
+            {
+                root = root.Delete(root, value); // Elimina el nodo
+                DrawTree();
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtNodeValue.Text, out int value))
+            {
+                BinaryTree.Node foundNode = root.Search(value);
+                MessageBox.Show(root.GetNodeInfo(foundNode, "Found"));
+            }
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            root = new BinaryTree.Node(); // Establece la raíz a null, eliminando todo el árbol
+            DrawTree();
+        }
+
+        private void btnPreOrder_Click(object sender, EventArgs e)
+        {
+            string result = PreOrderTraversal(root);
+            txtOutput.Text = result;
+        }
+        private string PreOrderTraversal(BinaryTree.Node node)
+        {
+            if (node == null) return "";
+            return node.value.ToString() + ", " + PreOrderTraversal(node.left) + PreOrderTraversal(node.right);
+        }
+
+        private void btnInOrder_Click(object sender, EventArgs e)
+        {
+            string result = InOrderTraversal(root);
+            txtOutput.Text = result;
+        }
+
+        private string InOrderTraversal(BinaryTree.Node node)
+        {
+            if (node == null) return "";
+            return InOrderTraversal(node.left) + node.value.ToString() + ", " + InOrderTraversal(node.right);
+        }
+
+        private void btnPostOrder_Click(object sender, EventArgs e)
+        {
+            string result = PostOrderTraversal(root);
+            txtOutput.Text = result;
+        }
+
+        private string PostOrderTraversal(BinaryTree.Node node)
+        {
+            if (node == null) return "";
+            return PostOrderTraversal(node.left) + PostOrderTraversal(node.right) + node.value.ToString() + ", ";
         }
     }
 }
