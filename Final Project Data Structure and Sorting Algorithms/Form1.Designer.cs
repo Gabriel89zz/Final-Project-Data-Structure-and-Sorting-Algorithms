@@ -140,6 +140,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             label22 = new Label();
             label23 = new Label();
             tabPage8 = new TabPage();
+            lblStatus = new Label();
             lstNumbersSort = new ListBox();
             cmbAlgoritms = new ComboBox();
             btnSort = new Button();
@@ -1350,6 +1351,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             // 
             // tabPage8
             // 
+            tabPage8.Controls.Add(lblStatus);
             tabPage8.Controls.Add(lstNumbersSort);
             tabPage8.Controls.Add(cmbAlgoritms);
             tabPage8.Controls.Add(btnSort);
@@ -1361,6 +1363,15 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             tabPage8.TabIndex = 5;
             tabPage8.Text = "Sorting Algorithms";
             tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // lblStatus
+            // 
+            lblStatus.AutoSize = true;
+            lblStatus.Font = new Font("Swis721 Lt BT", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStatus.Location = new Point(24, 75);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(0, 19);
+            lblStatus.TabIndex = 27;
             // 
             // lstNumbersSort
             // 
@@ -1383,7 +1394,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             // btnSort
             // 
             btnSort.Font = new Font("Swis721 Lt BT", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnSort.Location = new Point(449, 20);
+            btnSort.Location = new Point(450, 20);
             btnSort.Name = "btnSort";
             btnSort.Size = new Size(180, 42);
             btnSort.TabIndex = 24;
@@ -1428,6 +1439,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             tabPage4.ResumeLayout(false);
             tabPage4.PerformLayout();
             tabPage8.ResumeLayout(false);
+            tabPage8.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1550,5 +1562,6 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
         private Button btnSearch;
         private TextBox txtOutput;
         private Label label30;
+        private Label lblStatus;
     }
 }

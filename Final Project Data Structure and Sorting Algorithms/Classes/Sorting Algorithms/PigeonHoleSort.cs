@@ -8,44 +8,38 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
 {
     internal class PigeonHoleSort
     {
-        public static async Task Sort(int[] array, Action<int[], string> casillasDisplayCallback, Action<int[], string> sortedDisplayCallback)
+        public static async Task Sort(int[] numbers, Action<int[]> displayCallback)
         {
-            // Paso 1: Encontrar el valor mínimo y máximo
-            int min = array.Min();
-            int max = array.Max();
+            if (numbers == null || numbers.Length == 0)
+                return;
+
+            // Encontrar el mínimo y máximo en el arreglo
+            int min = numbers.Min();
+            int max = numbers.Max();
             int range = max - min + 1;
 
-            // Crear un arreglo de casillas
+            // Crear "pigeonholes" (espacios)
             int[] holes = new int[range];
 
-            // Paso 2: Asignar los elementos a las casillas
-            foreach (int num in array)
+            // Poner los elementos en sus respectivos "pigeonholes"
+            foreach (int number in numbers)
             {
-                holes[num - min]++;  // Incrementa el contador para la casilla correspondiente
-
-                // Mostrar cómo se va acomodando el número en su casilla
-                casillasDisplayCallback(holes, $"Asignando {num} a la casilla {num - min}");
-                await Task.Delay(500); // Pausa para mostrar el proceso
+                holes[number - min]++;
+                await Task.Delay(500); // Simulación de proceso (opcional)
+                displayCallback(numbers); // Mostrar el estado actual
             }
 
-            // Mostrar la distribución final de las casillas
-            casillasDisplayCallback(holes, "Distribución final de las casillas: " + string.Join(", ", holes));
-
-            // Paso 3: Recoger los elementos de las casillas en orden
+            // Reconstruir el arreglo desde los "pigeonholes"
             int index = 0;
             for (int i = 0; i < range; i++)
             {
                 while (holes[i]-- > 0)
                 {
-                    array[index++] = i + min;
-
-                    // Mostrar cómo se recogen los elementos y se van acomodando
-                    sortedDisplayCallback(array, $"Recogiendo {i + min} de la casilla {i}...");
-                    await Task.Delay(500); // Pausa para mostrar el proceso
+                    numbers[index++] = i + min;
+                    await Task.Delay(500); // Simulación de proceso (opcional)
+                    displayCallback(numbers); // Mostrar el estado actual
                 }
             }
-
-            sortedDisplayCallback(array, "Ordenamiento completado");
         }
     }
 }

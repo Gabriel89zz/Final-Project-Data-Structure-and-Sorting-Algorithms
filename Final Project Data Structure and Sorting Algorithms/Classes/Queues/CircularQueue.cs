@@ -33,7 +33,8 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues
         {
             if (count == Capacity)
             {
-                throw new InvalidOperationException("La cola está llena.");
+                MessageBox.Show("The Queueu is full.");
+                return;
             }
 
             rear = (rear + 1) % Capacity;  // Mover el índice rear de forma circular

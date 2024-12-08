@@ -10,6 +10,7 @@ using Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues;
 using Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Graphs;
 using static Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues.PriorityQueues;
 using Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.BinaryTree;
+using static Final_Project_Data_Structure_and_Sorting_Algorithms.RadixSort;
 
 namespace Final_Project_Data_Structure_and_Sorting_Algorithms
 {
@@ -49,7 +50,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             doubleEndedStaticQueue = new DoubleEndedStaticQueue(5);
             doubleEndedDynamicQueue = new DoubleEndedDynamicQueue();
             graph = new Graph();
-            cmbAlgoritms.Items.AddRange(new string[] { "Gnome Sort", "Heap Sort", "Pigeonhole Sort", "Bubble Sort", "Cocktail Sort", "Insertion Sort", "Shell Sort", "Selection Sort", "Quick Sort", "Merge Sort", "Direct Merge", "Natural Merge", "Comb Sort", "Counting Sort", "Bucket Sort" });
+            cmbAlgoritms.Items.AddRange(new string[] { "Gnome Sort", "Heap Sort", "Pigeonhole Sort", "Bubble Sort", "Cocktail Sort", "Insertion Sort", "Radix MSD Sort", "Radix LSD Sort", "Shell Sort", "Selection Sort", "Quick Sort", "Merge Sort", "Direct Merge", "Natural Merge", "Comb Sort", "Counting Sort", "Bucket Sort" });
             cmbAlgoritms.SelectedIndex = 0;
             numbers = new int[] { };
             vectorOfVectorsPQ = new VectorOfVectors_PQ<int>(3);
@@ -138,7 +139,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                 ShowListValues(lstCircularList, circularLinkedList.GetHead());
                 ShowListValues(lstDoubleCircularList, doubleCircularLinkedList.GetHead());
 
-                txtValue.Clear(); // Limpiar el TextBox
+                txtValue.Clear(); 
             }
             else
             {
@@ -467,7 +468,6 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                     message.AppendLine("Circular Queue: Empty");
                 }
 
-                // Mostrar todos los resultados en un solo MessageBox
                 MessageBox.Show(message.ToString(), "Peek Values", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -735,14 +735,12 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                 }
                 catch (Exception ex)
                 {
-                    // Manejar cualquier error de la cola dinámica
                     MessageBox.Show($"Dynamic queue error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
             catch (Exception ex)
             {
-                // Manejo de excepciones genéricas
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -864,35 +862,26 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             }
         }
 
-        //FALTA COLAS DE PRIORIDAD
         private void btnEnqueuePriorityQueue_Click(object sender, EventArgs e)
         {
-            try
+            // Intentamos convertir los valores del texto a enteros
+            if (int.TryParse(txtQueuePriorityValue.Text, out int value))
             {
-                // Intentamos convertir los valores del texto a enteros
-                if (int.TryParse(txtQueuePriorityValue.Text, out int value))
-                {
-                    // Convertimos el nivel de prioridad
-                    int priority = Convert.ToInt16(txtPriorityQueueLevel.Text);
+                // Convertimos el nivel de prioridad
+                int priority = Convert.ToInt32(txtPriorityQueueLevel.Text);
 
-                    // Encolamos los valores en las diferentes estructuras de datos
-                    vectorOfVectorsPQ.Enqueue(value, priority);
-                    vectorOfListsPQ.Enqueue(value, priority);
-                    listOfListsPQ.Enqueue(value, priority);
-                    listOfVectorsPQ.Enqueue(value, priority);
-                    UpdateListBoxes();
-                }
+                // Encolamos los valores en las diferentes estructuras de datos
+                vectorOfVectorsPQ.Enqueue(value, priority);
+                vectorOfListsPQ.Enqueue(value, priority);
+                listOfListsPQ.Enqueue(value, priority);
+                listOfVectorsPQ.Enqueue(value, priority);
+                UpdateListBoxes();
             }
-            catch (FormatException ex)
+            else
             {
-                // Capturamos el error si la conversión del nivel de prioridad falla
-                MessageBox.Show($"Invalid format for priority level. Please enter a valid integer. Error: {ex.Message}");
+                MessageBox.Show("Please enter a valid integer value.");
             }
-            catch (Exception ex)
-            {
-                // Capturamos cualquier otro error general
-                MessageBox.Show($"An error occurred: {ex.Message}");
-            }
+
         }
 
         private void UpdateListBoxes()
@@ -1020,7 +1009,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                 MessageBox.Show($"An error occurred while peeking: {ex.Message}");
             }
         }
-        //FALTA COLAS DE PIRORIDAD
+        
         private void btnAddNode_Click(object sender, EventArgs e)
         {
             string nodeName = txtNode.Text.Trim();
@@ -1254,7 +1243,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
         private void btnSetNumbers_Click(object sender, EventArgs e)
         {
             Random random = new Random();
-            numbers = Enumerable.Range(0, 10).Select(_ => random.Next(1, 100)).ToArray();
+            numbers = Enumerable.Range(0, 8).Select(_ => random.Next(1, 100)).ToArray();
             DisplayNumbers(numbers);
         }
 
@@ -1267,7 +1256,9 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             }
 
             string selectedMethod = cmbAlgoritms.SelectedItem.ToString();
+            var stopwatch = new System.Diagnostics.Stopwatch();
 
+            stopwatch.Start();
             switch (selectedMethod)
             {
                 case "Gnome Sort":
@@ -1279,9 +1270,9 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                 case "Comb Sort":
                     await CombSort.Sort(numbers, DisplayNumbers);
                     break;
-                //case "Pigeonhole Sort":
-                //    await PigeonHoleSort.Sort(numbers, UpdateCasillasListBox, UpdateSortedListBox);
-                //    break;
+                case "Pigeonhole Sort":
+                    await PigeonHoleSort.Sort(numbers, DisplayNumbersPigeonhole);
+                    break;
                 case "Cocktail Sort":
                     await CocktailSort.Sort(numbers, DisplayNumbers);
                     break;
@@ -1293,6 +1284,13 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                     break;
                 case "Shell Sort":
                     await ShellSort.Sort(numbers, DisplayNumbers);
+                    break;
+                case "Radix MSD Sort":
+                    await RadixMSDSort.Sort(numbers, DisplayNumbersRadix, ShowMessage);
+                    lblStatus.Text = "";
+                    break;
+                case "Radix LSD Sort":
+                    await RadixLSDSort.Sort(numbers, DisplayNumbersRadix, ShowMessage);
                     break;
                 case "Selection Sort":
                     await SelectionSort.Sort(numbers, DisplayNumbers);
@@ -1313,7 +1311,6 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                     await MergeAlgorithms.DirectMerge(numbers, DisplayNumbersMerge);
                     break;
                 case "Quick Sort":
-                    //CHECAR BIEN ESTA MADRE
                     await QuickSort.Sort(numbers, 0, numbers.Length - 1, DisplayNumbers);
                     break;
                 default:
@@ -1322,8 +1319,12 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
             }
 
 
-
-            MessageBox.Show("¡Ordenamiento completado!", selectedMethod, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            stopwatch.Stop();
+            double elapsedMilliseconds = stopwatch.Elapsed.TotalMilliseconds;
+            MessageBox.Show($"¡Ordering Completed!\n\nMétodo: {selectedMethod}\nTime: {elapsedMilliseconds:F2} ms",
+                    "Result",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
         }
 
         private void DisplayNumbers(int[] array, int currentIndex = -1, int compareIndex = -1)
@@ -1338,7 +1339,26 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms
                 }
                 lstNumbersSort.Items.Add(itemText);
             }
+        }
 
+        private void DisplayNumbersPigeonhole(int[] numbers)
+        {
+            lstNumbersSort.Items.Clear();
+            lstNumbersSort.Items.AddRange(numbers.Select(n => n.ToString()).ToArray());
+        }
+
+        private void DisplayNumbersRadix(int[] numbers)
+        {
+            lstNumbersSort.Items.Clear();
+            foreach (var number in numbers)
+            {
+                lstNumbersSort.Items.Add(number);
+            }
+        }
+        private void ShowMessage(string message)
+        {
+            lblStatus.Text = message; // Actualiza un `Label` en el formulario
+            lblStatus.Refresh();
         }
         private void DisplayNumbersMerge(int[] array, string message)
         {

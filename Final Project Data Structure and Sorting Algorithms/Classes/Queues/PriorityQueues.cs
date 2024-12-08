@@ -29,7 +29,10 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues
             public void Enqueue(T item, int priority)
             {
                 if (priority < 0 || priority > _maxPriority)
-                    throw new ArgumentException("Priority out of range.");
+                {
+                    MessageBox.Show("Priority out of range.");
+                    return;
+                }
 
                 // Resize the array at the given priority index to accommodate the new item
                 Array.Resize(ref _queue[priority], _queue[priority].Length + 1);
@@ -139,7 +142,9 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues
             {
                 // Validate priority range
                 if (priority < 0 || priority > _maxPriority)
-                    throw new ArgumentException("Priority out of range.");
+                {
+                    return;
+                }
 
                 // Add item to the appropriate priority list
                 _priorityLists[priority].Add(item);
@@ -255,7 +260,9 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues
             public void Enqueue(T item, int priority)
             {
                 if (priority < 0 || priority > _maxPriority)
-                    throw new ArgumentException("Priority out of range.");
+                {
+                    return;
+                }
 
                 _queue[priority].Add(item);
             }
@@ -346,7 +353,9 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues
             public void Enqueue(T item, int priority)
             {
                 if (priority < 0 || priority > _maxPriority)
-                    throw new ArgumentException("Priority out of range.");
+                {
+                    return;
+                }
 
                 // Create a new array with increased size and copy existing elements
                 T[] currentArray = _queue[priority];

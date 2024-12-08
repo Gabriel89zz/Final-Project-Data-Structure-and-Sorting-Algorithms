@@ -45,7 +45,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues
         {
             if (IsEmpty())
             {
-                throw new InvalidOperationException("La cola está vacía.");
+                throw new InvalidOperationException("The Queue is empty.");
             }
 
             int data = front.Value;
@@ -65,7 +65,7 @@ namespace Final_Project_Data_Structure_and_Sorting_Algorithms.Classes.Queues
         {
             if (IsEmpty())
             {
-                throw new InvalidOperationException("La cola está vacía.");
+                throw new InvalidOperationException("The Queue is empty.");
             }
 
             return front.Value;
